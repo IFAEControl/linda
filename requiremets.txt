@@ -1,0 +1,15 @@
+Bconvertacceslib==0.0.1
+colorlog==6.6.0
+Commacceslib==0.0.5
+et-xmlfile==1.1.0
+Excelacceslib==0.1
+K2600acceslib==0.1.1
+numpy==1.22.3
+openpyxl==3.0.9
+pandas==1.4.2
+python-dateutil==2.8.2
+pytz==2022.1
+PyVISA==1.11.3
+PyVISA-py==0.5.2
+six==1.16.0
+typing-extensions==4.1.1
