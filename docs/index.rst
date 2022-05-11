@@ -4,7 +4,7 @@
    contain the root `toctree` directive.
 
 Welcome to LINDAaccesslib documentation!
-====================================
+=========================================================
 .. image:: ./images/ifae_logo.png
    :height: 100
    :width: 200
@@ -44,4 +44,4 @@ Requiremtns.txt
 
 Code
 ====================================
-Check code on GitHub: https://www.devdungeon.com
+Check code on GitHub: https://github.com/IFAEControl/linda
