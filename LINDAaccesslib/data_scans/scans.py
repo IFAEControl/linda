@@ -108,7 +108,7 @@ def IFEED_charac_no_tdi(chip_reg, pixel_reg, dac_name_array, dac_v_ini, dac_v_fi
             summed_data = None
             for i in range(ERROR_MAX_ITERATIONS):
                 error, summed_data = acq_and_pop_data(dac_value, pulses_width, pulses, timer_reg, belt_dir,
-                                                      test_pulses, frames, chips_bitmap, shell)
+                                                      test_pulses, frames, chips_bitmap, shell, bridge)
                 if not error:
                     break
                 else:
@@ -208,7 +208,7 @@ def DISC_charac_no_tdi(chip_reg, pixel_reg, dac_name_array, dac_v_ini, dac_v_fi,
     error = bridge.use_full_array_chip_register_write_all(pack_data, chips_bitmap)
     """Programing pixel register one by one, because values are diferent in each chip."""
     pack_data = use_pixel_reg_to_pack_data(md_pr)
-    pixel_error = bridge.use_full_array_pixel_register_write(pack_data, chips_bitmap, shell)
+    pixel_error = bridge.use_full_array_pixel_register_write(pack_data, chips_bitmap)
     if pixel_error == -1:
         shell.error("Error in one ore more chips pixel reg programing")
 
@@ -234,7 +234,7 @@ def DISC_charac_no_tdi(chip_reg, pixel_reg, dac_name_array, dac_v_ini, dac_v_fi,
             """ ¡¡¡¡¡Here changinh pixel register matrix!!!!!"""
             md_pr = pr_set_disc(md_pr, dac_pos, disc_value)
             pack_data = use_pixel_reg_to_pack_data(md_pr)
-            pixel_error = bridge.use_full_array_pixel_register_write(pack_data, chips_bitmap, shell)
+            pixel_error = bridge.use_full_array_pixel_register_write(pack_data, chips_bitmap)
             if pixel_error == -1:
                 shell.error("Error in one ore more chips pixel reg programing")
 
@@ -257,7 +257,7 @@ def DISC_charac_no_tdi(chip_reg, pixel_reg, dac_name_array, dac_v_ini, dac_v_fi,
                 summed_data = None
                 for i in range(ERROR_MAX_ITERATIONS):
                     error, summed_data = acq_and_pop_data(dac_value, pulses_width, pulses, timer_reg, belt_dir,
-                                                          test_pulses, frames, chips_bitmap, shell)
+                                                          test_pulses, frames, chips_bitmap, shell, bridge)
                     if not error:
                         break
                     else:
@@ -348,10 +348,10 @@ def DISC_charac_no_tdi_precision(chip_reg, pixel_reg, offset_low, offset_high, o
 
     """Programing chip register"""
     pack_data = use_chip_reg_to_pack_data(md_cr)
-    error = bridge.use_full_array_chip_register_write(pack_data, chips_bitmap, shell)
+    error = bridge.use_full_array_chip_register_write(pack_data, chips_bitmap)
     """Programing pixel register one by one, because values are diferent in each chip."""
     pack_data = use_pixel_reg_to_pack_data(md_pr)
-    pixel_error = bridge.use_full_array_pixel_register_write(pack_data, chips_bitmap, shell)
+    pixel_error = bridge.use_full_array_pixel_register_write(pack_data, chips_bitmap)
     if pixel_error == -1:
         shell.error("Error in one ore more chips pixel reg programing")
 
@@ -375,7 +375,7 @@ def DISC_charac_no_tdi_precision(chip_reg, pixel_reg, offset_low, offset_high, o
             """ ¡¡¡¡¡Here changinh pixel register matrix!!!!!"""
             md_pr = pr_set_disc(md_pr, dac_pos, disc_value)
             pack_data = use_pixel_reg_to_pack_data(md_pr)
-            pixel_error = bridge.use_full_array_pixel_register_write(pack_data, chips_bitmap, shell)
+            pixel_error = bridge.use_full_array_pixel_register_write(pack_data, chips_bitmap)
             if pixel_error == -1:
                 shell.error("Error in one ore more chips pixel reg programing")
 
@@ -393,7 +393,7 @@ def DISC_charac_no_tdi_precision(chip_reg, pixel_reg, offset_low, offset_high, o
                 data_incremented = np.add(md_cr[0][dac_pos], + offset_increment, where=add_mask)
                 md_cr, error = replace_data_in_matrix(md_cr, data_incremented, (0, dac_pos))
                 pack_data = use_chip_reg_to_pack_data(md_cr)
-                bridge.use_full_array_chip_register_write(pack_data, chips_bitmap, shell)
+                bridge.use_full_array_chip_register_write(pack_data, chips_bitmap)
 
                 """Loop for each DAC value """
                 dac_value = md_cr[0][dac_pos]
@@ -403,7 +403,7 @@ def DISC_charac_no_tdi_precision(chip_reg, pixel_reg, offset_low, offset_high, o
                 summed_data = None
                 for i in range(ERROR_MAX_ITERATIONS):
                     error, summed_data = acq_and_pop_data(dac_value, pulses_width, pulses, timer_reg, belt_dir,
-                                                          test_pulses, frames, chips_bitmap, shell)
+                                                          test_pulses, frames, chips_bitmap, shell, bridge)
                     if not error:
                         break
                     else:
@@ -493,10 +493,10 @@ def dac_scan(chip_reg, pixel_reg, pulses_width, pulses, timer_reg, belt_dir, tes
 
     """Programing chip register one by one, because values are diferent in each chip."""
     pack_data = use_chip_reg_to_pack_data(md_cr)
-    error = bridge.use_full_array_chip_register_write(pack_data, chips_bitmap, shell)
+    error = bridge.use_full_array_chip_register_write(pack_data, chips_bitmap)
     """Programing pixel register one by one, because values are diferent in each chip."""
     pack_data = use_pixel_reg_to_pack_data(md_pr)
-    pixel_error = bridge.use_full_array_pixel_register_write(pack_data, chips_bitmap, shell)
+    pixel_error = bridge.use_full_array_pixel_register_write(pack_data, chips_bitmap)
     if pixel_error == -1:
         shell.error("Error in one ore more chips pixel reg programing")
 
@@ -511,7 +511,7 @@ def dac_scan(chip_reg, pixel_reg, pulses_width, pulses, timer_reg, belt_dir, tes
         summed_data = None
         for i in range(ERROR_MAX_ITERATIONS):
             error, summed_data = acq_and_pop_data("DAC_SCAN", pulses_width, pulses, timer_reg, belt_dir,
-                                                  test_pulses, frames, chips_bitmap, shell)
+                                                  test_pulses, frames, chips_bitmap, shell, bridge)
             if not error:
                 break
             else:
@@ -524,7 +524,7 @@ def dac_scan(chip_reg, pixel_reg, pulses_width, pulses, timer_reg, belt_dir, tes
         data_incremented = np.add(md_cr[0][dac_pos], + offset_increment, where=add_mask)
         md_cr, error = replace_data_in_matrix(md_cr, data_incremented, (0, dac_pos))
         pack_data = use_chip_reg_to_pack_data(md_cr)
-        bridge.use_full_array_chip_register_write(pack_data, chips_bitmap, shell)
+        bridge.use_full_array_chip_register_write(pack_data, chips_bitmap)
 
         shell.info(f"Actual data in chip_regsiter DAC{dac_pos}: {data_incremented}")
 

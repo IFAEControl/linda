@@ -1,0 +1,15 @@
+16:41:48,922 Python-Labview:  INFO Welcome to LINDA, you are in debug mode!!
+16:41:48,922 Python-Labview:  INFO Connecting to all the chips
+16:41:48,922 Python-Labview:  INFO C:/Users/titoare/Desktop/test/PY_LINDA/linda-lib.dll
+16:41:48,925 Python-Labview:  INFO Resetting all the chips
+16:41:48,936 Python-Labview:  INFO Calling write register for pixel and chip config.
+16:41:52,12 Excelacceslib.Excelacceslib.excel_matrix_manage INFO (1, 19, 30)
+16:41:52,384 Excelacceslib.Excelacceslib.excel_matrix_manage INFO (44, 30, 8, 20)
+16:41:53,90 Python-Labview:  INFO Calling full_array_chip_register_read.
+16:41:53,96 Python-Labview:  INFO Calling full_array_pixel_register_read.
+16:41:53,366 Python-Labview:  INFO Starting load_csv
+16:41:53,389 Python-Labview:  INFO (30, 120)
+16:41:53,389 Python-Labview:  INFO Loading scalar factors!
+16:41:53,389 Python-Labview:  INFO [1 4]
+16:42:17,62 Python-Labview:  INFO Starting set_hv
+16:42:17,67 Python-Labview:  WARNING 0

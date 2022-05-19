@@ -300,7 +300,7 @@ def use_manual_eq_stp2_precision(folder_path_step2, min_threshold, dac, path, co
         iter_ += 1
 
     """Saving matrix data"""
-    error = write_linda_matrix(shell, path, md_cr)
+    error = write_linda_matrix(path, md_cr, md_pr)
     if error:
         return np.zeros((2, 2, 2), dtype=np.int32), np.full((2, 2, 2), True, dtype=bool), \
                np.full((2, 2, 2), True, dtype=bool), True

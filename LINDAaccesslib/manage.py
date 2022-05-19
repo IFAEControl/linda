@@ -532,9 +532,6 @@ def dac_scan(path, folder_path, pulses_width, pulses, timer_reg, belt_dir,
     if np.any(data_in_dac_high > 2047):
         shell.error("Some chip register value is higher than 2047")
         return True
-    elif np.any(data_in_dac_low < 0):
-        shell.error("Some chip register value is lower than 0")
-        return True
 
     error = scans.dac_scan(chip_reg, pixel_reg,
                            pulses_width, pulses, timer_reg, belt_dir, test_pulses, frames, chips_bitmap,
@@ -552,7 +549,7 @@ def disc_charc_no_tdi(path, dac_doc_path, folder_path, dac_name_array, dac_v_ini
     :param path: Excel fiel absoluet phat. (str)
     :param dac_doc_path: Absolute path from the characteritzation file. (str)
     :param folder_path: Folder path where the documents will be created. (str)
-    :param dac_name_array: On characteritzation file column name to extract. (str)
+    :param dac_name_array: On characteritzation file column name to extract. (array)
     :param dac_v_ini: Initial dac value. (float)
     :param dac_v_fi: Final dac value. (float)
     :param dac_v_incr: Dac increment. (flaot)
@@ -576,12 +573,12 @@ def disc_charc_no_tdi(path, dac_doc_path, folder_path, dac_name_array, dac_v_ini
                                                          belt_dir, test_pulses, frames, chips_bitmap,
                                                          dac_doc_path, folder_path, shell, dac,
                                                          comm_bridge.return_bridge())
-    shell.info(out_folder_path)
-    shell.error(f"characterization_logic: {error}")
-    error = merge_data(out_folder_path)
-    shell.error(f"merge_data: {error}")
-
-    return False
+    shell.info(f"Out folder path: {out_folder_path}")
+    error_merge = merge_data(out_folder_path)
+    if error or error_merge:
+        return True
+    else:
+        return False
 
 
 def disc_charc_no_tdi_precision(excel_path, folder_path, offset_low, offset_high, offset_increment,
@@ -604,7 +601,7 @@ def disc_charc_no_tdi_precision(excel_path, folder_path, offset_low, offset_high
     :param offset_increment: Incriment value in the range. (uint)
     :return: Error. (bool)
     """
-    shell.info("Starting disc_charc_no_tdi.")
+    shell.info("Starting disc_charc_no_tdi precision.")
     try:
         chip_reg, pixel_reg = get_linda_matrix(excel_path)
     except FileNotFoundError:
@@ -615,12 +612,12 @@ def disc_charc_no_tdi_precision(excel_path, folder_path, offset_low, offset_high
                                                                    timer_reg, belt_dir, test_pulses, frames,
                                                                    chips_bitmap, folder_path, shell, dac,
                                                                    comm_bridge.return_bridge())
-    shell.info(out_folder_path)
-    shell.error(f"characterization_logic: {error}")
-    error = merge_data(out_folder_path)
-    shell.error(f"merge_data: {error}")
-
-    return False
+    shell.info(f"Out folder path: {out_folder_path}")
+    error_merge = merge_data(out_folder_path)
+    if error or error_merge:
+        return True
+    else:
+        return False
 
 
 def ifeed_charc_no_tdi(path, dac_doc_path, folder_path, dac_name_array, dac_v_ini, dac_v_fi, dac_v_incr, pulses_width,
@@ -656,12 +653,12 @@ def ifeed_charc_no_tdi(path, dac_doc_path, folder_path, dac_name_array, dac_v_in
                                                           belt_dir, test_pulses, frames, chips_bitmap,
                                                           dac_doc_path, folder_path, shell, dac,
                                                           comm_bridge.return_bridge())
-    shell.info(out_folder_path)
-    shell.error(f"characterization_logic: {error}")
-    error = merge_data(out_folder_path)
-    shell.error(f"merge_data: {error}")
-
-    return False
+    shell.info(f"Out folder path: {out_folder_path}")
+    error_merge = merge_data(out_folder_path)
+    if error or error_merge:
+        return True
+    else:
+        return False
 
 
 """ ******************************** Equalization ******************************** """
@@ -724,7 +721,7 @@ def get_stp2_precision(folder_path_step2, min_threshold, dac, excel_path, count_
     """
     Performs the second step for the equalization in presision mode.
 
-    :param folder_path_step2: Path of the folder where the DISC scan was saved. (str)
+    :param folder_path_step2: Path of the folder where the DISC PRECISION scan was saved. (str)
     :param min_threshold: Minimum value of counts above noise level. (float)
     :param dac: Dac position to be analyzed. (uint)
     :param excel_path: Excel file absolute path where the data is taken and then substituted with the new values. (str)
